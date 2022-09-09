@@ -4,8 +4,8 @@
 
 ### Student Info
 
--   Name: YOUR NAME
--   Section: ##
+-   Name: Nicholas DiGiovanni
+-   Section: 03
 
 ## Game Design
 
