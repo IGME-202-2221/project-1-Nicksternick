@@ -11,16 +11,16 @@ public class SpriteInfo : MonoBehaviour
     // ----- | Variables | -----
 
     // Variables to keep values of the minimum and maximum bounds
-    private float minX;
-    private float maxX;
-    private float minY;
-    private float maxY;
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
 
     private Vector3 size;
 
     private float centerX;
     private float centerY;
-    private Vector3 center;
+    public Vector3 center;
 
     // Variable to keep the radius based on the bounds
     private float radius;

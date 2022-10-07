@@ -49,8 +49,8 @@ public class Gun : MonoBehaviour
 
     public void SpawnBullet()
     {
-        bulletX = 0;
-        bulletY = 0;
+        bulletX = sprite.CenterX;
+        bulletY = sprite.CenterY;
 
         if (direction.x > 0)
         {
@@ -70,10 +70,26 @@ public class Gun : MonoBehaviour
             bulletY = sprite.MinY;
         }
 
-        if (bulletX != 0 && bulletY != 0)
+        if (direction.x != 0 && direction.y != 0)
         {
-            bulletX /= 2;
-            bulletY /= 2;
+            if (direction.x > 0)
+            {
+                bulletX = (sprite.MaxX + sprite.CenterX) / 2;
+            }
+            else
+            {
+                bulletX = (sprite.MinX + sprite.CenterX) / 2;
+            }
+            
+            if (direction.y > 0)
+            {
+                bulletY = (sprite.MaxY + sprite.CenterY) / 2;
+            }
+            else
+            {
+                bulletY = (sprite.MinY + sprite.CenterY) / 2;
+            }
+
         }
 
         bulletSpawnLocation = new Vector3(bulletX, bulletY, 0);

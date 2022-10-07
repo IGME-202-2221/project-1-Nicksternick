@@ -663,6 +663,26 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3241853755041314212, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241853755041314212, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241853755041314212, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241853755041314212, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241853755041314212, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 3241853755041314214, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
       propertyPath: sprite
       value: 
