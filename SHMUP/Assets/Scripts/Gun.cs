@@ -11,14 +11,16 @@ public class Gun : MonoBehaviour
     public bool prevInput;
     int i = 0;
 
-    public GameObject bulletPrefab;
+    public Bullet bulletPrefab;
 
     public Vector2 direction = Vector2.up;
     //public Vector2 velocity = Vector2.zero;
 
     private Vector2 movementInput;
 
+    // For bullets
     public Vector3 bulletSpawnLocation;
+    public List<Bullet> playerBullets = new List<Bullet>();
     float bulletX;
     float bulletY;
 
@@ -39,7 +41,17 @@ public class Gun : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
         }
 
-        if (input && !prevInput)
+        for (int i = 0; i < playerBullets.Count; i++)
+        {
+            if (playerBullets[i].WrapCount > 3)
+            {
+                playerBullets[i].Kill();
+                playerBullets.RemoveAt(i);
+            }
+        }
+
+        // If block to check if a bullet should be spawned
+        if (input && !prevInput && playerBullets.Count < 5)
         {
             SpawnBullet();
         }
@@ -93,7 +105,8 @@ public class Gun : MonoBehaviour
         }
 
         bulletSpawnLocation = new Vector3(bulletX, bulletY, 0);
-        Instantiate(bulletPrefab, bulletSpawnLocation, Quaternion.identity);
+        playerBullets.Add(Instantiate(bulletPrefab, bulletSpawnLocation, Quaternion.identity));
+        playerBullets[playerBullets.Count-1].GetDirection(direction);
     }
 
     public void Shoot(InputAction.CallbackContext moveContext)

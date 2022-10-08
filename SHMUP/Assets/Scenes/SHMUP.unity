@@ -324,6 +324,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08c7dc7724919849af4f2dd0471ec12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minX: 0
+  maxX: 0
+  minY: 0
+  maxY: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1 &1736408550
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +695,6 @@ PrefabInstance:
     - target: {fileID: 3241853755041314214, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 170993957727869472, guid: e34aacb222c74034dac9007dd8a5951d, type: 3}
+      objectReference: {fileID: 8766177313571300710, guid: e34aacb222c74034dac9007dd8a5951d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d79b106ab0818143a11ef48eb486ffd, type: 3}
