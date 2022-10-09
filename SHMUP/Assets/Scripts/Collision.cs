@@ -9,7 +9,7 @@ public class Collision : MonoBehaviour
     // ----- | Variables | -----
     public Gun playerGun;
     public SpriteInfo player;
-    public List<SpriteInfo> collidable = new List<SpriteInfo>();
+    public List<Enemy> collidable = new List<Enemy>();
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class Collision : MonoBehaviour
         // For player colliding with anything
         for (int i = 0; i < collidable.Count; i++)
         {
-            if (AABBCollision(player, collidable[i]))
+            if (AABBCollision(player, collidable[i].SpriteInfo))
             {
                 player.Color = Color.red;
                 break;
@@ -34,42 +34,67 @@ public class Collision : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < playerGun.playerBullets.Count; i++)
+        if(playerGun.playerBullets.Count > 0)
         {
-            if (AABBCollision(player, playerGun.playerBullets[i].SpriteInfo))
+            for (int i = 0; i < playerGun.playerBullets.Count; i++)
             {
-                player.Color = Color.red;
-                break;
-            }
-            else
-            {
-                player.Color = Color.white;
+                if (playerGun.playerBullets[i].SpriteInfo != null)
+                {
+                    if (AABBCollision(player, playerGun.playerBullets[i].SpriteInfo))
+                    {
+                        player.Color = Color.red;
+                        break;
+                    }
+                    else
+                    {
+                        player.Color = Color.white;
+                    }
+                }
             }
         }
+
 
         // Check for player bullets colliding with enemy
         for (int i = 0; i < collidable.Count; i++)
         {
-            // if it's an ememy, check for anything colliding it
-            if (collidable[i].Tag == "Enemy")
+            if (collidable[i].SpriteInfo != null)
             {
-                if(playerGun.playerBullets.Count > 0)
+                // if it's an ememy, check for anything colliding it
+                if (collidable[i].SpriteInfo.Tag == "Enemy")
                 {
-                    // Loop through player bullets
-                    for (int j = 0; j < playerGun.playerBullets.Count; j++)
+                    if (playerGun.playerBullets.Count > 0)
                     {
-                        if (AABBCollision(collidable[i], playerGun.playerBullets[j].SpriteInfo))
+                        // Loop through player bullets
+                        for (int j = 0; j < playerGun.playerBullets.Count; j++)
                         {
-                            collidable[i].Color = Color.blue;
-                            break;
-                        }
-                        else
-                        {
-                            collidable[i].Color = Color.white;
+                            if (playerGun.playerBullets[j].SpriteInfo != null)
+                            {
+                                if (AABBCollision(collidable[i].SpriteInfo, playerGun.playerBullets[j].SpriteInfo))
+                                {
+                                    collidable[i].SpriteInfo.Color = Color.blue;
+
+                                    // Spawn in new enemeies and destroy the original
+                                    collidable[i].OnHit();
+                                    collidable[i].AddEnemiesToList(collidable);
+                                    collidable[i].Kill();
+                                    collidable.RemoveAt(i);
+
+                                    // Destroy the bullet that caused the collision
+                                    playerGun.playerBullets[j].Kill();
+                                    playerGun.playerBullets.RemoveAt(j);
+
+                                    break;
+                                }
+                                else
+                                {
+                                    collidable[i].SpriteInfo.Color = Color.white;
+                                }
+                            }
                         }
                     }
                 }
             }
+
         }
     }
 

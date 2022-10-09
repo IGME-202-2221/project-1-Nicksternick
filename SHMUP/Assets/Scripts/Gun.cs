@@ -23,8 +23,8 @@ public class Gun : MonoBehaviour
     // For bullets
     public Vector3 bulletSpawnLocation;
     public List<Bullet> playerBullets;
-    float bulletX;
-    float bulletY;
+    public float bulletX;
+    public float bulletY;
 
     private void Awake()
     {
@@ -111,7 +111,6 @@ public class Gun : MonoBehaviour
             {
                 bulletY = (sprite.MinY + sprite.CenterY) / 2;
             }
-
         }
 
         bulletSpawnLocation = new Vector3(bulletX, bulletY, 0);

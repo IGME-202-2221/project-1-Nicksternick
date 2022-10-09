@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         spriteInfo = gameObject.GetComponent<SpriteInfo>();
-        speed = Random.Range(2, 4);
+        speed = Random.Range(4, 6);
         screenX = 8;
         screenY = 5;
     }
@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         position = transform.position;
-        position += new Vector2(speed, speed) * direction *Time.deltaTime;
+        position += new Vector2(speed, speed) * direction * Time.deltaTime;
 
         if (transform.position.x < (screenX * -1))
         {

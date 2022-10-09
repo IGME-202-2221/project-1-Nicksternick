@@ -16,7 +16,9 @@ public class SpriteInfo : MonoBehaviour
     public float minY;
     public float maxY;
 
-    private Vector3 size;
+    public Vector3 size;
+    public float sizeX;
+    public float sizeY;
 
     private float centerX;
     private float centerY;
@@ -50,6 +52,17 @@ public class SpriteInfo : MonoBehaviour
     public Vector3 Size
     {
         get { return size; }
+        set { size = value; }
+    }
+    public float SizeX
+    {
+        get { return sizeX; }
+        set { sizeX = value; }
+    }
+    public float SizeY
+    {
+        get { return sizeY; }
+        set { sizeY = value; }
     }
     public float CenterX
     {
@@ -91,6 +104,8 @@ public class SpriteInfo : MonoBehaviour
         maxY = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.max.y;
 
         size = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.size;
+        sizeX = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.size.x;
+        sizeY = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.size.y;
 
         centerX = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.center.x;
         centerY = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.center.y;
