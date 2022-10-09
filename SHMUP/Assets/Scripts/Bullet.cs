@@ -6,6 +6,8 @@ using UnityEngine.Device;
 
 public class Bullet : MonoBehaviour
 {
+    // ----- | Variables | -----
+    private SpriteInfo spriteInfo;
     public Vector2 direction;
     private Vector2 position;
     private int screenX;
@@ -21,9 +23,15 @@ public class Bullet : MonoBehaviour
         get { return wrapCount; }
     }
 
+    public SpriteInfo SpriteInfo
+    {
+        get { return spriteInfo; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        spriteInfo = gameObject.GetComponent<SpriteInfo>();
         speed = Random.Range(2, 4);
         screenX = 8;
         screenY = 5;

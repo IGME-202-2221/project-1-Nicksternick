@@ -25,6 +25,9 @@ public class SpriteInfo : MonoBehaviour
     // Variable to keep the radius based on the bounds
     private float radius;
 
+    // Store the sprites Tag
+    private string tag;
+
     // ----- | Properties | -----
 
     // Properties that are to be acessed by other partnered scripts
@@ -71,6 +74,10 @@ public class SpriteInfo : MonoBehaviour
             this.gameObject.GetComponentInChildren<SpriteRenderer>().color = value;
         }
     }
+    public string Tag
+    {
+        get { return tag; }
+    }
 
     // ----- | Methods | -----
 
@@ -91,6 +98,8 @@ public class SpriteInfo : MonoBehaviour
         center = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.center;
 
         radius = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.extents.magnitude;
+
+        tag = this.gameObject.GetComponentInChildren<SpriteRenderer>().tag;
     }
 
     // Update is called once per frame
