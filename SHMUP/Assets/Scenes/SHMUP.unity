@@ -582,9 +582,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGun: {fileID: 1097372646}
+  enemyRefrence: {fileID: 6642420373692244588, guid: 7df0833f75cc7c0458a15075f5188274, type: 3}
   player: {fileID: 2067922609}
   collidable:
   - {fileID: 1934920998}
+  maxClock: 0
+  clock: 0
+  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1934920998 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6642420373692244588, guid: 7df0833f75cc7c0458a15075f5188274, type: 3}

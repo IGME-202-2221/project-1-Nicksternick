@@ -31,18 +31,18 @@ public class Vehicle : MonoBehaviour
         velocity = direction * speed * Time.deltaTime;
 
         // Check to see if the Velocity will bring the character out of bounds
-        if (velocity.x < 8 && velocity.x > -8)
-        {
-            if (velocity.y < 5 && velocity.y < -5)
-            {
-                // add out velocities to the position
-                transform.position += (Vector3)velocity;
-            }
-        }
+        //if (velocity.x > 8 || velocity.x < -8)
+        //{
+        //    velocity = new Vector2(0, 0);
+        //}
 
+        //if (velocity.y > 5 || velocity.y < -5)
+        //{
+        //    velocity = new Vector2(0, 0);
+        //}
 
-
-
+        // add out velocities to out positions
+        transform.position += (Vector3)velocity;
 
         //if(direction != Vector2.zero)
         //{

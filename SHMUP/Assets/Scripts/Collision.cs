@@ -8,30 +8,49 @@ public class Collision : MonoBehaviour
 {
     // ----- | Variables | -----
     public Gun playerGun;
+    public Enemy enemyRefrence;
     public SpriteInfo player;
     public List<Enemy> collidable = new List<Enemy>();
+
+    public int maxClock;
+    public float clock;
+    public Vector3 spawnPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        maxClock = Random.Range(5, 11);
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Update timer, if the timer is max, if the timer is above max, spawn enemy
+        clock += 1f * Time.deltaTime;
+
+        if (clock > maxClock)
+        {
+            SpawnEnemy();
+            clock = 0;
+            maxClock = Random.Range(5, 11);
+        }
+
+
         // For player colliding with anything
         for (int i = 0; i < collidable.Count; i++)
         {
-            if (AABBCollision(player, collidable[i].SpriteInfo))
+            if (collidable[i].SpriteInfo != null)
             {
-                player.Color = Color.red;
-                Debug.Log("Enemy!");
-                break;
-            }
-            else
-            {
-                player.Color = Color.white;
+                if (AABBCollision(player, collidable[i].SpriteInfo))
+                {
+                    player.Color = Color.red;
+                    Debug.Log("Enemy!");
+                    break;
+                }
+                else
+                {
+                    player.Color = Color.white;
+                }
             }
         }
 
@@ -98,6 +117,13 @@ public class Collision : MonoBehaviour
             }
 
         }
+    }
+
+    private void SpawnEnemy()
+    {
+        spawnPosition = new Vector3(Random.Range(-8f, 8f), Random.Range(-5f, 5f), 0);
+        collidable.Add(Instantiate(enemyRefrence, spawnPosition, Quaternion.identity));
+        collidable[collidable.Count - 1].Prefab = enemyRefrence;
     }
 
     private bool AABBCollision(SpriteInfo player, SpriteInfo collidable)
