@@ -35,13 +35,14 @@ including your own bullets. You'll have to be smart and aware of every single th
     -   Left: Left Arrow
     -   Right: Right Arrow
 -   Fire: 
+    - Space
 
 ## You Additions
 
 _List out what you added to your game to make it different for you_
 
 Own additions:
-- Recusively spawning enemies from destroyed enemies (Yet to be implemented)
+- Recusively spawning enemies from destroyed enemies, enemies will spawn two enemies on death. This will happen twice before just regularly despawning
 - Multiple weapon types (Yet to be implemented)
 - Expandable wrapping script
 
