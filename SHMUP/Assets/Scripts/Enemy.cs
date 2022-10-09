@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     private Vector2 spawnDirection;
     public Enemy prefab;
     public Vector3 spawnLocation;
+    public Vector3 scaleVector;
 
     // ----- | Properties | -----
     public SpriteInfo SpriteInfo
@@ -50,7 +51,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = 1;
+        speed = Random.Range(2, 6);
         spriteInfo = gameObject.GetComponent<SpriteInfo>();
         GetTargetPosition();
     }
@@ -106,6 +107,7 @@ public class Enemy : MonoBehaviour
                 newEnemies.Add(Instantiate(prefab, spriteInfo.Center, Quaternion.identity));
                 newEnemies[newEnemies.Count - 1].Iteration = iteration + 1;
                 newEnemies[newEnemies.Count - 1].Prefab = prefab;
+                newEnemies[newEnemies.Count - 1].HalfSize();
             }
         }
         else
@@ -117,5 +119,10 @@ public class Enemy : MonoBehaviour
     public void Kill()
     {
         Destroy(this.gameObject);
+    }
+
+    public void HalfSize()
+    {
+        gameObject.transform.localScale /= 2;
     }
 }

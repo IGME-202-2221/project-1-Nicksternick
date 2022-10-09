@@ -126,6 +126,10 @@ public class SpriteInfo : MonoBehaviour
         minY = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.min.y;
         maxY = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.max.y;
 
+        size = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.size;
+        sizeX = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.size.x;
+        sizeY = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.size.y;
+
         centerX = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.center.x;
         centerY = this.gameObject.GetComponentInChildren<SpriteRenderer>().bounds.center.y;
 

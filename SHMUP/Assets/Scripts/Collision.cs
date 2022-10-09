@@ -26,6 +26,7 @@ public class Collision : MonoBehaviour
             if (AABBCollision(player, collidable[i].SpriteInfo))
             {
                 player.Color = Color.red;
+                Debug.Log("Enemy!");
                 break;
             }
             else
@@ -43,6 +44,7 @@ public class Collision : MonoBehaviour
                     if (AABBCollision(player, playerGun.playerBullets[i].SpriteInfo))
                     {
                         player.Color = Color.red;
+                        Debug.Log("Bullet!");
                         break;
                     }
                     else
