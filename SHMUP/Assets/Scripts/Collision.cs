@@ -16,6 +16,22 @@ public class Collision : MonoBehaviour
     public float clock;
     public Vector3 spawnPosition;
 
+    // ----- | Properties | -----
+    public Gun PlayerGun
+    {
+        get { return playerGun; }
+    }
+
+    public int MaxClock
+    {
+        get { return maxClock; }
+    }
+
+    public float Clock
+    {
+        get { return clock; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +50,7 @@ public class Collision : MonoBehaviour
             collidable.Add(Instantiate(enemyRefrence, spawnPosition, Quaternion.identity));
             collidable[collidable.Count - 1].Prefab = enemyRefrence;
             clock = 0;
-            maxClock = Random.Range(5, 11);
+            maxClock = Random.Range(10, 16);
         }
 
 

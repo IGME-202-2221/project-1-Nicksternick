@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
     // Run this method if a collision is detected
     public void OnHit()
     {
-        if (iteration < 4)
+        if (iteration < 3)  
         {
             for (int i = 0; i < 2; i++)
             {

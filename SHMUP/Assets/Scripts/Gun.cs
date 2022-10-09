@@ -61,7 +61,7 @@ public class Gun : MonoBehaviour
         }
 
         // If block to check if a bullet should be spawned
-        if (input && !prevInput && playerBullets.Count < 5)
+        if (input && !prevInput && playerBullets.Count < 10)
         {
             SpawnBullet();
         }
