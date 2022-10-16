@@ -38,24 +38,19 @@ including your own bullets. You'll have to be smart and aware of every single th
     - Space
 
 ## You Additions
-
 _List out what you added to your game to make it different for you_
 
 Own additions:
-- Recusively spawning enemies from destroyed enemies, enemies will spawn two enemies on death. This will happen twice before just regularly despawning
-- Multiple weapon types (Yet to be implemented)
-- Expandable wrapping script
+- Recusively spawning enemies from destroyed enemies, enemies will spawn two enemies on death. This will happen twice before just regularly despawning.
+- Damage that increases exponentially when you are colliding with an enemy.
+- Added a main menu and highscore to the game.
 
 ## Sources
-
--   _List all project sources here –models, textures, sound clips, assets, etc._
--   _If an asset is from the Unity store, include a link to the page and the author’s name_
+- I did the art assets for the player, bullets and enemies.
 
 ## Known Issues
-
 Collision between PlayerBullets, Enemies and Player is working. There is an issue where if there is a bullet out of the screen, the player wont change color to indicate a collision from an enemy due to how the code is written, but the collision is still being detected if you look at the code
 
 ### Requirements not completed
 
 _If you did not complete a project requirement, notate that here_
-
