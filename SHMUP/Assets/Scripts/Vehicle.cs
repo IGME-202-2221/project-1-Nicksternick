@@ -83,16 +83,24 @@ public class Vehicle : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Sees whether the player is colliding and then updates health accordingly
+    /// </summary>
+    /// <param name="Collision"></param>
+    /// <param name="beenColliding"></param>
     public void TakeDamage(bool Collision ,bool beenColliding)
     {
         this.collision = Collision;
 
+        // if it's been colliding then increase
+        // the amount of damage taken
         if (beenColliding)
         {
             dmgMultiplier += .1f;
         }
 
+        // if there is a collision then reset heal
+        // multiplier and calculate new health
         if (Collision)
         {
             healMultiplier = .01f;
@@ -100,6 +108,9 @@ public class Vehicle : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Resets the heal multiplier if the gun is shot
+    /// </summary>
     public void ShotGun()
     {
         healMultiplier = .01f;

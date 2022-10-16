@@ -92,6 +92,7 @@ public class Collision : MonoBehaviour
             }
         }
 
+        // For player colliding with bullets
         if(playerGun.playerBullets.Count > 0)
         {
             for (int i = 0; i < playerGun.playerBullets.Count; i++)
@@ -141,6 +142,8 @@ public class Collision : MonoBehaviour
             }
         }
 
+        // Calls a player method to calculate damage
+        // (See the player class for how damage is calculated)
         if (enemyHit || bulletHit)
         {
             if (prevEnemyHit || prevBulletHit)

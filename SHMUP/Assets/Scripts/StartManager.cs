@@ -44,6 +44,7 @@ public class StartManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Gets a refrence to a player and text if the scene is SHMUP
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("SHMUP") &&
             vehicle == null || text == null)
         {
@@ -51,6 +52,7 @@ public class StartManager : MonoBehaviour
             text = GameObject.FindWithTag("Text");
         }
 
+        // Gets a refrece to a button and highscore if the scene is MainMenu
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu") &&
             highScore == null || button == null)
         {
@@ -58,11 +60,13 @@ public class StartManager : MonoBehaviour
             highScore = GameObject.FindWithTag("Highscore");
         }
 
+        // During game update the score variable
         if (inGame && vehicle != null)
         {
             text.GetComponent<Stats>().MaxScore = score;
             score = text.GetComponent<Stats>().Score;
 
+            // if the health of the vehicle reaches 0 then go back to the main menu
             if (vehicle.GetComponent<Vehicle>().Health < 0)
             {
                 score = text.GetComponent<Stats>().Score;
@@ -89,11 +93,9 @@ public class StartManager : MonoBehaviour
         }
     }
 
-    public void AddButton()
-    {
-
-    }
-
+    /// <summary>
+    /// The logic to start the game
+    /// </summary>
     public void OnButton()
     {
         highscore = score;
