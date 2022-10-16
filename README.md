@@ -53,7 +53,7 @@ Own additions:
 
 ## Known Issues
 
-_List any errors, lack of error checking, or specific information that I need to know to run your program_
+Collision between PlayerBullets, Enemies and Player is working. There is an issue where if there is a bullet out of the screen, the player wont change color to indicate a collision from an enemy due to how the code is written, but the collision is still being detected if you look at the code
 
 ### Requirements not completed
 
