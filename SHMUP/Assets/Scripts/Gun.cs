@@ -25,6 +25,12 @@ public class Gun : MonoBehaviour
     public float bulletX;
     public float bulletY;
 
+    // ----- | Properties | -----
+    public SpriteInfo SpriteInfo
+    {
+        get { return sprite; }
+    }
+
     private void Awake()
     {
         playerBullets = new List<Bullet>();

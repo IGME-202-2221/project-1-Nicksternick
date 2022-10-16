@@ -99,15 +99,18 @@ public class Collision : MonoBehaviour
             {
                 if (playerGun.playerBullets[i].SpriteInfo != null)
                 {
-                    if (AABBCollision(player.SpriteInfo, playerGun.playerBullets[i].SpriteInfo))
+                    if (playerGun.playerBullets[i].Clock > 1)
                     {
-                        bulletHit = true;
-                        break;
-                    }
-                    else
-                    {
-                        bulletHit = false;
-                        player.TakeDamage(false, false);
+                        if (AABBCollision(player.SpriteInfo, playerGun.playerBullets[i].SpriteInfo))
+                        {
+                            bulletHit = true;
+                            break;
+                        }
+                        else
+                        {
+                            bulletHit = false;
+                            player.TakeDamage(false, false);
+                        }
                     }
                 }
             }
@@ -146,6 +149,8 @@ public class Collision : MonoBehaviour
         // (See the player class for how damage is calculated)
         if (enemyHit || bulletHit)
         {
+            player.SpriteInfo.Color = Color.red;
+            playerGun.SpriteInfo.Color = Color.red;
             if (prevEnemyHit || prevBulletHit)
             {
                 player.TakeDamage(true, true);
@@ -157,6 +162,8 @@ public class Collision : MonoBehaviour
         }
         else
         {
+            player.SpriteInfo.Color = Color.white;
+            playerGun.SpriteInfo.Color = Color.white;
             if (prevEnemyHit || prevBulletHit)
             {
                 player.TakeDamage(false, true);

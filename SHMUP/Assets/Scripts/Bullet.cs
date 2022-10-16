@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour
 
     private int wrapCount;
 
+    public float time;
+
     // ----- | Properties | -----
     public int WrapCount
     {
@@ -26,6 +28,11 @@ public class Bullet : MonoBehaviour
     public SpriteInfo SpriteInfo
     {
         get { return spriteInfo; }
+    }
+
+    public float Clock
+    {
+        get { return time; }
     }
 
     // Start is called before the first frame update
@@ -40,6 +47,8 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time = time + 1 * Time.deltaTime;
+
         position = transform.position;
         position += new Vector2(speed, speed) * direction * Time.deltaTime;
 
