@@ -9,9 +9,12 @@ public class StartManager : MonoBehaviour
     public GameObject vehicle;
     public GameObject text;
     public GameObject highScore;
+    public GameObject button;
 
+    public bool addedEvent;
     public bool inGame;
     public float score;
+    public float highscore;
 
     public string format;
 
@@ -19,6 +22,7 @@ public class StartManager : MonoBehaviour
 
     private void Awake()
     {
+        // Sees if a GameManger is already initalized, and if so delete this one
         game = GameObject.FindGameObjectsWithTag("GameController");
 
         if (game.Length == 1)
@@ -48,8 +52,9 @@ public class StartManager : MonoBehaviour
         }
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("MainMenu") &&
-            highScore == null)
+            highScore == null || button == null)
         {
+            button = GameObject.FindWithTag("Button");
             highScore = GameObject.FindWithTag("Highscore");
         }
 
@@ -63,22 +68,36 @@ public class StartManager : MonoBehaviour
                 score = text.GetComponent<Stats>().Score;
                 SceneManager.LoadScene("MainMenu");
                 inGame = false;
+                addedEvent = false;
+                if (score < highscore)
+                {
+                    score = highscore;
+                }
             }
         }
 
-        if (!inGame && highScore != null)
+        if (!inGame && highScore != null && button != null)
         {
+            if (!addedEvent)
+            {
+                button.GetComponent<Button>().onClick.AddListener(OnButton);               
+                addedEvent = true;
+            }
             score = Mathf.Floor(score);
             format = string.Format($"Highscore: {score}");
             highScore.GetComponent<Text>().text = format;
         }
     }
 
+    public void AddButton()
+    {
+
+    }
+
     public void OnButton()
     {
+        highscore = score;
         SceneManager.LoadScene("SHMUP");
-        
         inGame = true;
-
     }
 }

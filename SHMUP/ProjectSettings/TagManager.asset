@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Text
   - Highscore
+  - Button
   layers:
   - Default
   - TransparentFX

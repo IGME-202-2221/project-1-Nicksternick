@@ -40,7 +40,7 @@ public class Stats : MonoBehaviour
         format = string.Format($"Stats:" +
                                $"\r\n- Bullets: ({refrence.PlayerGun.playerBullets.Count})10" +
                                $"\r\n- Clock: ({Mathf.Floor(refrence.clock)}){refrence.MaxClock}" +
-                               $"\r\n- Score: ({Mathf.Floor(score)}) Highscore: {maxScore}");
+                               $"\r\n- Score: ({Mathf.Floor(score)})");
 
         score = score + .2f * Time.deltaTime; 
         bar.size = refrence.Player.Health / 100;

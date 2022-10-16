@@ -19,6 +19,8 @@ public class Collision : MonoBehaviour
     public int enemyType;
     public int spawnCount;
 
+    public Vector3 spawnDistance;
+
     // Boolean values for player collision
     public bool enemyHit;
     public bool prevEnemyHit;
@@ -172,7 +174,7 @@ public class Collision : MonoBehaviour
 
     private void SpawnEnemy(int listMax)
     {
-        spawnPosition = new Vector3(Random.Range(-8f, 8f), Random.Range(-5f, 5f), 0);
+        spawnPosition = new Vector3(Random.Range(-1, 2) * 8, Random.Range(-1, 2) * 5, 0);
         collidable.Add(Instantiate(enemyRefrence[listMax], spawnPosition, Quaternion.identity));
         collidable[collidable.Count - 1].Prefab = enemyRefrence[listMax];
         collidable[collidable.Count - 1].Player = player;
