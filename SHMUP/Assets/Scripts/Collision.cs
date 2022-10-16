@@ -83,13 +83,11 @@ public class Collision : MonoBehaviour
                 {
 
                     enemyHit = true;
-                    player.SpriteInfo.Color = Color.red;
                     break;
                 }
                 else
                 {
                     enemyHit = false;
-                    player.SpriteInfo.Color = Color.white;
                 }
             }
         }
@@ -103,14 +101,12 @@ public class Collision : MonoBehaviour
                     if (AABBCollision(player.SpriteInfo, playerGun.playerBullets[i].SpriteInfo))
                     {
                         bulletHit = true;
-                        player.SpriteInfo.Color = Color.red;
                         break;
                     }
                     else
                     {
                         bulletHit = false;
                         player.TakeDamage(false, false);
-                        player.SpriteInfo.Color = Color.white;
                     }
                 }
             }
