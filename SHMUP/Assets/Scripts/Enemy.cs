@@ -2,27 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     // ----- | Variables | -----
-    private SpriteInfo spriteInfo;
+    protected SpriteInfo spriteInfo;
 
     // variables for movement
     public float speed;
-    public Vector3 targetLocation;
     public Vector3 position;
     public Vector3 direction;
-
-    public float x;
-    public float y;
+    public Vehicle player;
 
     // Used to spawn the recursive enemies
     public List<Enemy> newEnemies = new List<Enemy>();
     public int iteration;
-    private Vector2 spawnDirection;
     public Enemy prefab;
     public Vector3 spawnLocation;
-    public Vector3 scaleVector;
 
     // ----- | Properties | -----
     public SpriteInfo SpriteInfo
@@ -47,48 +42,28 @@ public class Enemy : MonoBehaviour
     {
         get { return newEnemies; }
     }
+    public Vehicle Player
+    {
+        get { return player; }
+        set { player = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = Random.Range(2, 6);
-        spriteInfo = gameObject.GetComponent<SpriteInfo>();
-        GetTargetPosition();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        position = gameObject.transform.position;
-
-        direction = targetLocation - position;
-
-        direction.Normalize();
-
-        position.x += speed * direction.x * Time.deltaTime;
-        position.y += speed * direction.y * Time.deltaTime;
-        position.z = 0;
-
-        gameObject.transform.position = position;
-
-        if (gameObject.transform.position.x > targetLocation.x - .5 &&
-            gameObject.transform.position.x < targetLocation.x + .5)
-        {
-            if (gameObject.transform.position.y > targetLocation.y - .5 &&
-            gameObject.transform.position.y < targetLocation.y + .5)
-            {
-                GetTargetPosition();
-            }
-        }
-
-
+        
     }
 
-    public void GetTargetPosition()
-    {
-        targetLocation = new Vector3(Random.Range(-8, 8), Random.Range(-5, 5), 0);
-    }
-
+    /// <summary>
+    /// Adds the list of enemies to the list in the Collision Script
+    /// </summary>
+    /// <param name="enemyList"></param>
     public void AddEnemiesToList(List<Enemy> enemyList)
     {
         foreach (Enemy enemy in newEnemies)
@@ -97,32 +72,30 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Run this method if a collision is detected
-    public void OnHit()
-    {
-        if (iteration < 3)  
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                newEnemies.Add(Instantiate(prefab, spriteInfo.Center, Quaternion.identity));
-                newEnemies[newEnemies.Count - 1].Iteration = iteration + 1;
-                newEnemies[newEnemies.Count - 1].Prefab = prefab;
-                newEnemies[newEnemies.Count - 1].HalfSize();
-            }
-        }
-        else
-        {
-            Kill();
-        }
-    }
+    /// <summary>
+    /// Spawns more enemies and they destroy this enemy
+    /// </summary>
+    public abstract void OnHit();
 
+    /// <summary>
+    /// Handles the movement of the enemy
+    /// </summary>
+    public abstract void OnMove();
+
+    /// <summary>
+    /// Remove the Enemy from the scene
+    /// </summary>
     public void Kill()
     {
         Destroy(this.gameObject);
     }
 
+    //divides the enemy in half
     public void HalfSize()
     {
-        gameObject.transform.localScale /= 2;
+        if (Iteration < 3)
+        {
+            gameObject.transform.localScale /= 2;
+        }
     }
 }

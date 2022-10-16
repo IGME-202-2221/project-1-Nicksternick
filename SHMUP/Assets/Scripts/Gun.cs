@@ -11,7 +11,6 @@ public class Gun : MonoBehaviour
 
     public bool input;
     public bool prevInput;
-    int i = 0;
 
     public Bullet bulletPrefab;
 
@@ -51,6 +50,7 @@ public class Gun : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
         }
 
+        // Check to see if you need to remove a bullet
         for (int i = 0; i < playerBullets.Count; i++)
         {
             if (playerBullets[i].WrapCount > 3)
@@ -69,6 +69,9 @@ public class Gun : MonoBehaviour
         prevInput = input;
     }
 
+    /// <summary>
+    /// Spawn a bullet based on what direction the gun is facing
+    /// </summary>
     public void SpawnBullet()
     {
         bulletX = sprite.CenterX;
@@ -119,6 +122,10 @@ public class Gun : MonoBehaviour
         playerBullets[playerBullets.Count - 1].tag = "Player";
     }
 
+    /// <summary>
+    /// Checks to see whether the gun has been fired or not.
+    /// </summary>
+    /// <param name="moveContext"></param>
     public void Shoot(InputAction.CallbackContext moveContext)
     {
         if (moveContext.performed)
@@ -131,6 +138,10 @@ public class Gun : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the direction for movement
+    /// </summary>
+    /// <param name="moveContext"></param>
     public void OnMove(InputAction.CallbackContext moveContext)
     {
         movementInput = moveContext.ReadValue<Vector2>();

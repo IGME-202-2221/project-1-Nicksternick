@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         spriteInfo = gameObject.GetComponent<SpriteInfo>();
-        speed = Random.Range(4, 6);
+        speed = 6;
         screenX = 8;
         screenY = 5;
     }

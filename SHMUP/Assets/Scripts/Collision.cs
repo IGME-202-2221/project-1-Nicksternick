@@ -8,13 +8,23 @@ public class Collision : MonoBehaviour
 {
     // ----- | Variables | -----
     public Gun playerGun;
-    public Enemy enemyRefrence;
-    public SpriteInfo player;
+    public List<Enemy> enemyRefrence = new List<Enemy>();
+    public Vehicle player;
     public List<Enemy> collidable = new List<Enemy>();
 
+    // Variables for enemy spawning
     public int maxClock;
     public float clock;
     public Vector3 spawnPosition;
+    public int enemyType;
+    public int spawnCount;
+
+    // Boolean values for player collision
+    public bool enemyHit;
+    public bool prevEnemyHit;
+
+    public bool bulletHit;
+    public bool prevBulletHit;
 
     // ----- | Properties | -----
     public Gun PlayerGun
@@ -32,10 +42,15 @@ public class Collision : MonoBehaviour
         get { return clock; }
     }
 
+    public Vehicle Player
+    {
+        get { return player; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        maxClock = Random.Range(5, 11);
+        maxClock = 4;
     }
 
     // Update is called once per frame
@@ -46,27 +61,33 @@ public class Collision : MonoBehaviour
 
         if (clock > maxClock)
         {
-            spawnPosition = new Vector3(Random.Range(-8f, 8f), Random.Range(-5f, 5f), 0);
-            collidable.Add(Instantiate(enemyRefrence, spawnPosition, Quaternion.identity));
-            collidable[collidable.Count - 1].Prefab = enemyRefrence;
-            clock = 0;
-            maxClock = Random.Range(10, 16);
-        }
+            spawnCount = Random.Range(1, 4);
 
+            for (int i = 0; i < spawnCount; i++)
+            {
+                SpawnEnemy(Random.Range(0, enemyRefrence.Count));
+            }
+
+            clock = 0;
+            maxClock = Random.Range(10, 15);
+        }
 
         // For player colliding with anything
         for (int i = 0; i < collidable.Count; i++)
         {
             if (collidable[i].SpriteInfo != null)
             {
-                if (AABBCollision(player, collidable[i].SpriteInfo))
+                if (AABBCollision(player.SpriteInfo, collidable[i].SpriteInfo))
                 {
-                    player.Color = Color.red;
+
+                    enemyHit = true;
+                    player.SpriteInfo.Color = Color.red;
                     break;
                 }
                 else
                 {
-                    player.Color = Color.white;
+                    enemyHit = false;
+                    player.SpriteInfo.Color = Color.white;
                 }
             }
         }
@@ -77,67 +98,85 @@ public class Collision : MonoBehaviour
             {
                 if (playerGun.playerBullets[i].SpriteInfo != null)
                 {
-                    if (AABBCollision(player, playerGun.playerBullets[i].SpriteInfo))
+                    if (AABBCollision(player.SpriteInfo, playerGun.playerBullets[i].SpriteInfo))
                     {
-                        player.Color = Color.red;
+                        bulletHit = true;
+                        player.SpriteInfo.Color = Color.red;
                         break;
                     }
                     else
                     {
-                        player.Color = Color.white;
+                        bulletHit = false;
+                        player.TakeDamage(false, false);
+                        player.SpriteInfo.Color = Color.white;
                     }
                 }
             }
         }
-
 
         // Check for player bullets colliding with enemy
         for (int i = 0; i < collidable.Count; i++)
         {
-            if (collidable[i].SpriteInfo != null)
+            if (collidable[i].SpriteInfo != null && playerGun.playerBullets.Count > 0)
             {
-                // if it's an ememy, check for anything colliding it
-                if (collidable[i].SpriteInfo.Tag == "Enemy" && playerGun.playerBullets.Count > 0)
+                // Loop through player bullets
+                for (int j = 0; j < playerGun.playerBullets.Count; j++)
                 {
-                    // Loop through player bullets
-                    for (int j = 0; j < playerGun.playerBullets.Count; j++)
+                    if (playerGun.playerBullets[j].SpriteInfo != null)
                     {
-                        if (playerGun.playerBullets[j].SpriteInfo != null)
+                        if (AABBCollision(collidable[i].SpriteInfo, playerGun.playerBullets[j].SpriteInfo))
                         {
-                            if (AABBCollision(collidable[i].SpriteInfo, playerGun.playerBullets[j].SpriteInfo))
-                            {
-                                collidable[i].SpriteInfo.Color = Color.blue;
+                            // Spawn in new enemeies and destroy the original
+                            collidable[i].OnHit();
+                            collidable[i].AddEnemiesToList(collidable);
+                            collidable[i].Kill();
+                            collidable.RemoveAt(i);
 
-                                // Spawn in new enemeies and destroy the original
-                                collidable[i].OnHit();
-                                collidable[i].AddEnemiesToList(collidable);
-                                collidable[i].Kill();
-                                collidable.RemoveAt(i);
+                            // Destroy the bullet that caused the collision
+                            playerGun.playerBullets[j].Kill();
+                            playerGun.playerBullets.RemoveAt(j);
 
-                                // Destroy the bullet that caused the collision
-                                playerGun.playerBullets[j].Kill();
-                                playerGun.playerBullets.RemoveAt(j);
-
-                                break;
-                            }
-                            else
-                            {
-                                collidable[i].SpriteInfo.Color = Color.white;
-                            }
+                            break;
                         }
                     }
                 }
             }
-
         }
+
+        if (enemyHit || bulletHit)
+        {
+            if (prevEnemyHit || prevBulletHit)
+            {
+                player.TakeDamage(true, true);
+            }
+            else
+            {
+                player.TakeDamage(true, false);
+            }
+        }
+        else
+        {
+            if (prevEnemyHit || prevBulletHit)
+            {
+                player.TakeDamage(false, true);
+            }
+            else
+            {
+                player.TakeDamage(false, false);
+            }
+        }
+
+        prevEnemyHit = enemyHit;
+        prevBulletHit = bulletHit;
     }
 
-    //private void SpawnEnemy()
-    //{
-    //    spawnPosition = new Vector3(Random.Range(-8f, 8f), Random.Range(-5f, 5f), 0);
-    //    collidable.Add(Instantiate(enemyRefrence, spawnPosition, Quaternion.identity));
-    //    collidable[collidable.Count - 1].Prefab = enemyRefrence;
-    //}
+    private void SpawnEnemy(int listMax)
+    {
+        spawnPosition = new Vector3(Random.Range(-8f, 8f), Random.Range(-5f, 5f), 0);
+        collidable.Add(Instantiate(enemyRefrence[listMax], spawnPosition, Quaternion.identity));
+        collidable[collidable.Count - 1].Prefab = enemyRefrence[listMax];
+        collidable[collidable.Count - 1].Player = player;
+    }
 
     private bool AABBCollision(SpriteInfo player, SpriteInfo collidable)
     {

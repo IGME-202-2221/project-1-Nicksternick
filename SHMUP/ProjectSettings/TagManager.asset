@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Bullet
+  - Text
+  - Highscore
   layers:
   - Default
   - TransparentFX
